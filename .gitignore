@@ -28,6 +28,13 @@ yarn-error.log*
 # local env files
 .env*.local
 
+# python env
+/venv
+/ragenv
+reviews.json
+load.ipynb
+# requirements.txt
+
 # vercel
 .vercel
 

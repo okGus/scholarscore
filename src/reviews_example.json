@@ -1,0 +1,125 @@
+{
+    "reviews": [
+      {
+        "professor": "Dr. Emily Carter",
+        "subject": "Physics",
+        "stars": 5,
+        "review": "Amazing professor! She explains complex concepts in a very simple way and is always available for questions."
+      },
+      {
+        "professor": "Dr. John Smith",
+        "subject": "History",
+        "stars": 3,
+        "review": "His lectures are informative but can be a bit dry. Be prepared to read a lot."
+      },
+      {
+        "professor": "Dr. Samantha Lee",
+        "subject": "Mathematics",
+        "stars": 4,
+        "review": "Very knowledgeable and patient. Sometimes goes too fast, but she is willing to help after class."
+      },
+      {
+        "professor": "Dr. Robert Jones",
+        "subject": "Chemistry",
+        "stars": 2,
+        "review": "Difficult to follow his lectures, and his exams are extremely tough. Not the best for beginners."
+      },
+      {
+        "professor": "Dr. Angela Martinez",
+        "subject": "Biology",
+        "stars": 5,
+        "review": "One of the best professors I’ve ever had! She makes the subject fascinating and engages everyone in class."
+      },
+      {
+        "professor": "Dr. Mark Davis",
+        "subject": "Philosophy",
+        "stars": 3,
+        "review": "Interesting lectures, but his grading is inconsistent. Be sure to participate in discussions."
+      },
+      {
+        "professor": "Dr. Linda Wilson",
+        "subject": "Psychology",
+        "stars": 4,
+        "review": "Her classes are insightful, and she genuinely cares about her students. Sometimes her assignments are unclear."
+      },
+      {
+        "professor": "Dr. James Brown",
+        "subject": "Computer Science",
+        "stars": 1,
+        "review": "Terrible professor. He is unorganized and unhelpful. Avoid if you can."
+      },
+      {
+        "professor": "Dr. Karen Thompson",
+        "subject": "English Literature",
+        "stars": 5,
+        "review": "She brings the literature to life! Her passion for the subject is contagious."
+      },
+      {
+        "professor": "Dr. Michael Miller",
+        "subject": "Economics",
+        "stars": 2,
+        "review": "Difficult to understand, and his exams are much harder than what is taught in class."
+      },
+      {
+        "professor": "Dr. Susan White",
+        "subject": "Political Science",
+        "stars": 4,
+        "review": "Very knowledgeable and encourages critical thinking. However, her lectures can be dense."
+      },
+      {
+        "professor": "Dr. Richard Taylor",
+        "subject": "Sociology",
+        "stars": 3,
+        "review": "He has a lot of knowledge but tends to go off-topic. Class discussions are interesting though."
+      },
+      {
+        "professor": "Dr. Jessica Moore",
+        "subject": "Anthropology",
+        "stars": 5,
+        "review": "Fantastic professor! Her fieldwork stories make the class incredibly engaging."
+      },
+      {
+        "professor": "Dr. Charles Harris",
+        "subject": "Engineering",
+        "stars": 2,
+        "review": "His lectures are boring, and he doesn’t explain things well. Labs are confusing."
+      },
+      {
+        "professor": "Dr. Patricia Evans",
+        "subject": "Nursing",
+        "stars": 4,
+        "review": "Very knowledgeable and cares about student success, but her exams are challenging."
+      },
+      {
+        "professor": "Dr. Matthew Nelson",
+        "subject": "Law",
+        "stars": 5,
+        "review": "Incredible professor. His cases and examples are very relevant and engaging."
+      },
+      {
+        "professor": "Dr. Lisa Clark",
+        "subject": "Environmental Science",
+        "stars": 3,
+        "review": "Passionate about the subject, but her lectures can be long and repetitive."
+      },
+      {
+        "professor": "Dr. Steven Lewis",
+        "subject": "Statistics",
+        "stars": 4,
+        "review": "His lectures are clear, and he is approachable. However, his tests are tough."
+      },
+      {
+        "professor": "Dr. Nancy Walker",
+        "subject": "Art History",
+        "stars": 5,
+        "review": "Her enthusiasm for art is contagious. Every lecture is a joy to attend."
+      },
+      {
+        "professor": "Dr. Paul Adams",
+        "subject": "Marketing",
+        "stars": 3,
+        "review": "His lectures are practical but can be monotonous. Group projects are key to doing well."
+      }
+    ]
+  }
+  
