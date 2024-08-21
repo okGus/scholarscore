@@ -1,5 +1,4 @@
 'use client'
-import Image from 'next/image'
 import { useState } from 'react'
 import { Box, Stack, TextField, Button } from '@mui/material'
 
@@ -15,43 +14,48 @@ export default function Home() {
   const sendMessage = async () => {
     setMessages((messages) => [
       ...messages,
-      {role: 'user', content: message},
-      {role: 'assistant', content: ''}
+      { role: 'user', content: message },
+      { role: 'assistant', content: '' }
     ])
 
     setMessage('')
 
-    const response = fetch('/api/chat', {
+    const response = await fetch('/api/chat', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify([...messages , {role: 'user', content: message}])
-    }).then(async(res)=>{
-      const reader = res.body!.getReader()
-      const decoder = new TextDecoder()
-
-      let result = ''
-      return reader.read().then(function processText({ done, value }) {
-        if (done) {
-          return result
-        }
-        const text = decoder.decode(value || new Uint8Array(), { stream: true })
-        setMessages((messages) => {
-          let lastMessage = messages[messages.length - 1]
-          let otherMessages = messages.slice(0, messages.length - 1)
-          return [
-            ...otherMessages,
-            {...lastMessage, content: lastMessage.content + text},
-          ]
-        })
-
-        return reader.read().then(processText)
-      })
+      body: JSON.stringify([...messages, { role: 'user', content: message }])
     })
+
+    const reader = response.body!.getReader()
+    const decoder = new TextDecoder()
+
+    let result = ''
+    
+    const processText = async ({ done, value }: ReadableStreamReadResult<Uint8Array>): Promise<string> => {
+      if (done) {
+        return result
+      }
+      const text = decoder.decode(value || new Uint8Array(), { stream: true })
+      setMessages((messages) => {
+        let lastMessage = messages[messages.length - 1]
+        let otherMessages = messages.slice(0, messages.length - 1)
+        return [
+          ...otherMessages,
+          { ...lastMessage, content: lastMessage.content + text },
+        ]
+      })
+
+      // Recursively call processText until done
+      result += text
+      return reader.read().then(processText)
+    }
+
+    await reader.read().then(processText)
   }
 
   return (
-  <Box width="100vw" height="100vh" display="flex" flexDirection="column" justifyContent="center" alignItems="center">
-    <Stack direction="column" width="500px" height="700px" border="1px solid black" p={2} spacing={3}>
+    <Box width="100vw" height="100vh" display="flex" flexDirection="column" justifyContent="center" alignItems="center">
+      <Stack direction="column" width="500px" height="700px" border="1px solid black" p={2} spacing={3}>
         <Stack direction="column" spacing={2} flexGrow={1} overflow={'auto'} maxHeight={"100%"}>
           {messages.map((message, index) => (
             <Box key={index} display="flex" justifyContent={message.role === 'assistant' ? 'flex-start' : 'flex-end'}>
@@ -61,10 +65,32 @@ export default function Home() {
             </Box>
           ))}
         </Stack>
-    </Stack>
-    <Stack direction="row" spacing={2}>
-      <TextField label="Message" fullWidth value={message} onChange={(e) => setMessage(e.target.value)} sx={{ input: { color: 'white' } }}/>
-      <Button variant="contained" onClick={sendMessage}>Send</Button>
-    </Stack>
-  </Box>)
+      </Stack>
+      <Stack direction="row" spacing={2} mt={2}>
+        <TextField
+          label="Message"
+          fullWidth
+          value={message}
+          onChange={(e) => setMessage(e.target.value)}
+          sx={{
+            '& .MuiInputBase-input': {
+              color: 'white', // Ensures the text color inside the TextField is white
+            },
+            '& .MuiOutlinedInput-root': {
+              '& fieldset': {
+                borderColor: 'white', // Optional: change border color if needed
+              },
+              '&:hover fieldset': {
+                borderColor: 'white', // Optional: change border color on hover
+              },
+              '&.Mui-focused fieldset': {
+                borderColor: 'white', // Optional: change border color when focused
+              }
+            }
+          }}
+        />
+        <Button variant="contained" onClick={sendMessage}>Send</Button>
+      </Stack>
+    </Box>
+  )
 }
