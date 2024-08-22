@@ -3,6 +3,25 @@ import { useState } from 'react'
 import { Box, Stack, TextField, Button } from '@mui/material'
 
 export default function Home() {
+  const [link, setLink] = useState('')
+
+  const fetchReviews = async (link: string) => {
+    const response = await fetch('http://localhost:5000/api/scrape', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ url: link }),
+    });
+    
+    if (!response.ok) {
+      throw new Error('Failed to fetch reviews');
+    }
+    
+    const data = await response.json();
+    console.log(data.reviews);
+    // return data.reviews;
+  }
+
+
   const [messages, setMessages] = useState([
     {
       role: 'assistant',
@@ -54,6 +73,34 @@ export default function Home() {
   }
 
   return (
+    <Box width="100vw" height="100vh" display="flex" flexDirection="row" p={2} alignItems="center">
+      {/* Box for uploading website link */}
+      <Box width="300px" p={2} border="1px solid black" mr={2}>
+      <TextField
+        label="Enter Rate My Professor Link"
+        fullWidth
+        value={link}
+        onChange={(e) => setLink(e.target.value)}
+        sx={{
+          '& .MuiInputBase-input': {
+            color: 'white', // Ensure the text color inside the TextField is black for readability
+          },
+          '& .MuiOutlinedInput-root': {
+            '& fieldset': {
+              borderColor: 'white', // Optional: change border color if needed
+            },
+            '&:hover fieldset': {
+              borderColor: 'white', // Optional: change border color on hover
+            },
+            '&.Mui-focused fieldset': {
+              borderColor: 'white', // Optional: change border color when focused
+            }
+          }
+        }}
+      />
+      <Button variant="contained" onClick={() => fetchReviews(link)}>Fetch Reviews</Button>
+    </Box>
+
     <Box width="100vw" height="100vh" display="flex" flexDirection="column" justifyContent="center" alignItems="center">
       <Stack direction="column" width="500px" height="700px" border="1px solid black" p={2} spacing={3}>
         <Stack direction="column" spacing={2} flexGrow={1} overflow={'auto'} maxHeight={"100%"}>
@@ -92,5 +139,6 @@ export default function Home() {
         <Button variant="contained" onClick={sendMessage}>Send</Button>
       </Stack>
     </Box>
+  </Box>
   )
 }

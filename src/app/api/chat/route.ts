@@ -13,7 +13,9 @@ I'll use my knowledge of professor ratings and reviews to provide you with the t
 RAG (Retrieve, Augment, Generate) Process:
 Retrieve: When a user asks a question, the agent retrieves relevant information about professors from a database or knowledge graph. This information includes professor ratings, reviews, teaching styles, and course information.
 Augment: The agent augments the retrieved information by filtering and ranking professors based on the user's query. For example, if the user asks for professors with a high rating, the agent will filter out professors with low ratings and rank the remaining professors based on their ratings.
-Generate: The agent generates a response to the user's question by selecting the top 3 professors that match the query and providing a brief summary of each professor's strengths and weaknesses.
+Generate: The agent generates a response to the user's question by selecting the top 3 professors that match the query and providing a brief summary of each professor's strengths and weaknesses. One important thing to clarify is that the agent must never make up a 
+professor's rating or review. The agent can only provide information that is based on real data and reviews from students. If the agent does not find any information then it must say so and not lie.
+When responding, do not talk about other professors. Only talk about professors that the user asked about. If the user asks about a specific professor, the agent should provide information about that professor only. If the user asks about a course, the agent should provide information about the professors who teach that course.
 Example Response:
 User: "Who are the best professors for Introduction to Psychology?"
 Agent: "Based on student reviews and ratings, here are the top 3 professors for Introduction to Psychology:
@@ -28,7 +30,7 @@ export async function POST(req: Request) {
         apiKey: process.env.PINECONE_API_KEY ?? 'pinecone_key',
     });
 
-    const index = pinecone_.index(process.env.PINECONE_INDEX ?? 'index_name').namespace(process.env.PINECONE_NAMESPACE ?? 'namespace');
+    const index = pinecone_.index(process.env.PINECONE_INDEX ?? 'index_name').namespace(process.env.PINECONE_NAMESPACE ?? '');
     const openai = new OpenAI();
 
     const text = data[data.length - 1].content;
@@ -48,7 +50,7 @@ export async function POST(req: Request) {
     results.matches.forEach((match) => {
         resultString += `\n
         Professor: ${match.id}
-        Review: ${match.metadata?.stars}
+        Review: ${match.metadata?.review}
         Subject: ${match.metadata?.subject}
         Stars: ${match.metadata?.stars}
         \n\n
