@@ -27,10 +27,10 @@ Let me know if you have any other questions or if you'd like more information ab
 export async function POST(req: Request) {
     const data = await req.json();
     const pinecone_ = new Pinecone({
-        apiKey: process.env.PINECONE_API_KEY as string,
+        apiKey: process.env.PINECONE_API_KEY ?? 'pinecone_key',
     });
 
-    const index = pinecone_.index('rag').namespace('');
+    const index = pinecone_.index(process.env.PINECONE_INDEX ?? 'index_name').namespace(process.env.PINECONE_NAMESPACE ?? '');
     const openai = new OpenAI();
 
     const text = data[data.length - 1].content;
