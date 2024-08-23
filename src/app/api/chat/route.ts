@@ -30,8 +30,10 @@ export async function POST(req: Request) {
         apiKey: process.env.PINECONE_API_KEY ?? 'pinecone_key',
     });
 
-    const index = pinecone_.index(process.env.PINECONE_INDEX ?? 'index_name').namespace(process.env.PINECONE_NAMESPACE ?? '');
-    const openai = new OpenAI();
+    const index = pinecone_.index(process.env.PINECONE_INDEX ?? 'rag').namespace(process.env.PINECONE_NAMESPACE ?? '');
+    const openai = new OpenAI({
+        apiKey: process.env.OPENAI_API_KEY as string,
+    });
 
     const text = data[data.length - 1].content;
     const embedding = await openai.embeddings.create({

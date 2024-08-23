@@ -5,6 +5,7 @@ from flask_cors import CORS
 from openai import OpenAI
 from pinecone import Pinecone, ServerlessSpec
 import os
+from dotenv import load_dotenv
 
 def scrape_reviews(url):
     try:
@@ -56,6 +57,7 @@ def scrape_reviews(url):
         
 
         process_data = []
+        load_dotenv()
         client = OpenAI()
 
         response = client.embeddings.create(
@@ -111,4 +113,4 @@ def scrape():
     return jsonify({"reviews": reviews})
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=5000)
