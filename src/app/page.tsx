@@ -6,19 +6,33 @@ export default function Home() {
   const [link, setLink] = useState('')
 
   const fetchReviews = async (link: string) => {
-    const response = await fetch('http://127.0.0.1:5000/api/scrape', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ url: link }),
-    });
-    
-    if (!response.ok) {
-      throw new Error('Failed to fetch reviews');
+    try {
+      const response = await fetch('http://127.0.0.1:5000/api/scrape', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ url: link }),
+      });
+      
+      if (!response.ok) {
+        // Handling non-200 responses
+        if (response.status === 400) {
+          // Set a status message for UI useState
+          console.log('Bad Request: Please check the URL.');
+        } else if (response.status === 500) {
+          console.log('Server Error: Please try again later.');
+        } else {
+          console.log(`Error: Received status code ${response.status}`);
+        }
+        return;
+      }
+      
+      const data = await response.json();
+      // Set a status message for UI useState
+      console.log('Successfully fetched reviews');
+    } catch (error) {
+      // Set a status message for UI useState
+      console.error('Error:', error);
     }
-    
-    const data = await response.json();
-    console.log(data.reviews);
-    // return data.reviews;
   }
 
 
