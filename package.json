@@ -15,6 +15,7 @@
     "@mui/styled-engine-sc": "^6.0.0-alpha.18",
     "@pinecone-database/pinecone": "^3.0.0",
     "@ribajs/bs4": "^2.0.0-rc.19",
+    "framer-motion": "^11.3.29",
     "next": "14.2.5",
     "openai": "^4.56.0",
     "react": "^18",
