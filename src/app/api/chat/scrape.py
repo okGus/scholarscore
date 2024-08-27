@@ -97,7 +97,7 @@ def scrape_reviews(url):
 app = Flask(__name__)
 CORS(app)
 
-@app.route('/api/scrape', methods=['POST'])
+@app.route('/api/chat/scrape', methods=['POST'])
 def scrape():
     data = request.json
     url = data.get('url')
@@ -113,4 +113,4 @@ def scrape():
     return jsonify({"reviews": reviews})
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
+    app.run(host='0.0.0.0', port=6000)
