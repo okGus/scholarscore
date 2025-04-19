@@ -18,7 +18,7 @@ def run_scrapegraph(url):
 
     # Create the SmartScraperGraph instance
     smart_scraper_graph = SmartScraperGraph(
-        prompt="Get reviews, the reviews will be under Textbook: Yes/No",
+        prompt="Get reviews, the reviews will be under Textbook: Yes/No, with professor, subject, stars (or level of difficulty), review",
         source=url,
         config=graph_config
     )
